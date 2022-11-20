@@ -16,7 +16,12 @@ void JogoDaVida::Matar(int i, int j) {
 }
 
 void JogoDaVida::Reviver(int i, int j) {
-  vivas_[i][j] = true;
+    if(i < 0 || j < 0 || i > linhas() || j > colunas()){
+        throw ExcecaoCelulaInvalida(i, j);   
+        return;
+    }else{
+        vivas_[i][j] = true;
+    }
 }
 
 int JogoDaVida::NumeroDeVizinhasVivas(int x, int y) {
