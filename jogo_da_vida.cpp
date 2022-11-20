@@ -1,4 +1,5 @@
 #include "jogo_da_vida.hpp"
+#include <cstring>
 
 // Inicializa vivas_ como um vetor com l elementos.
 // Cada elemento, por sua vez, é um vetor com c elementos iguais a false.
@@ -13,6 +14,7 @@ bool JogoDaVida::viva(int i, int j) {
 void JogoDaVida::Matar(int i, int j) {
   vivas_[i][j] = false;
 }
+
 void JogoDaVida::Reviver(int i, int j) {
   vivas_[i][j] = true;
 }
@@ -51,4 +53,14 @@ void JogoDaVida::Executar(int n) {
   for (int i = 0; i < n; i++) {
     ExecutarProximaIteracao();
   }
+}
+
+ExcecaoCelulaInvalida::ExcecaoCelulaInvalida(int m, int n):
+  _m_error(m), _n_error(n)
+  {
+    _msg_error = "Célula (" + std::to_string(m) + ", " + std::to_string(n) + ") não é válida. Deseja continuar e ignorá-la? (s/n)?\n";
+  }
+
+const char * ExcecaoCelulaInvalida::what() const noexcept{
+  return _msg_error.c_str();
 }
