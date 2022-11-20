@@ -49,8 +49,25 @@ int main() {
 
   JogoDaVida jogo(numero_de_linhas, numero_de_colunas);
   int linha, coluna;
+  char verificacao;
+  
   while (cin >> linha >> coluna) {
+    try{
       jogo.Reviver(linha, coluna);
+    }
+    catch(ExcecaoCelulaInvalida &e){
+      verificacao = ' ';
+      do{
+        cout << e.what();
+        cin >> verificacao;
+      }while(verificacao != 's' && verificacao != 'n');
+      if(verificacao == 'n'){
+        return 1;
+      }
+      if(verificacao == 's'){
+       continue; 
+      }
+    }
   }
   cout << jogo << endl;
   
